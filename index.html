@@ -592,7 +592,7 @@ function wishForm(w){
   openSheet(`<h3>하고 싶은 것 고치기</h3><form data-form="wish">
     ${photoField(hold.photo,"사진 (선택)")}
     <div class="field"><label for="wTitle">하고 싶은 것</label><input id="wTitle" class="input" value="${esc(w.title)}" maxlength="60"></div>
-    <div class="field"><label for="wPlace">장소 또는 지도 링크 (선택)</label><input id="wPlace" class="input" value="${esc(w.place)}" maxlength="40"></div>
+    <div class="field"><label for="wPlace">장소 또는 지도 링크 (선택)</label><input id="wPlace" class="input" value="${esc(w.place)}" maxlength="500" placeholder="예) 호이안 올드타운 또는 구글지도 링크"></div>
     <div class="actions"><button type="button" class="pill danger" data-act="delWish" data-id="${w.id}">지우기</button><button class="pill solid">저장</button></div></form>`,
   sh=>{ bindPhoto(sh,hold); sh.querySelector("form").onsubmit=async e=>{ e.preventDefault();
     try{ await api.update("wishes",w.id,{title:sh.querySelector("#wTitle").value.trim()||w.title,place:sh.querySelector("#wPlace").value.trim(),photo:hold.photo}); closeSheet(); toast("저장했어요"); }catch(err){ toast("저장하지 못했어요."); } }; });
