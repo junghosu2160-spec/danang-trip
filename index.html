@@ -209,7 +209,7 @@ const FIREBASE_CONFIG = {
 };
 const TRIP_ID = "danang-2026";
 
-const HERO = "https://images.unsplash.com/photo-1602646993875-70bc0ba52c87?w=1200&q=80&auto=format&fit=crop";
+const HERO = "https://images.unsplash.com/photo-1560113855-2ea616c915ee?w=1200&q=80&auto=format&fit=crop";
 const PEOPLE = ["의석","호수","현정"];
 const PC = {"의석":{bg:"#E1DCF8",fg:"#4B41A0"},"호수":{bg:"#FBDAE5",fg:"#A3375E"},"현정":{bg:"#F1D8F2",fg:"#7D3A8C"}};
 const DAYS = [
@@ -366,9 +366,9 @@ function vPlan(){
   const ck=checks.map(c=>`<div class="check ${c.done?"done":""}"><button class="box ${c.done?"on":""}" data-act="toggleCheck" data-id="${c.id}" aria-label="${c.done?"완료 취소":"완료"}">${c.done?`<span style="color:#fff">${svg("check",14,3.4)}</span>`:""}</button><span class="txt">${esc(c.text)}</span><button class="owner" data-act="editCheck" data-id="${c.id}" style="background:${PC[c.owner]?.bg||"#F1EBE4"};color:${PC[c.owner]?.fg||"var(--mut)"}">${esc(c.owner||"모두")}</button></div>`).join("");
   return `
   <header class="hero">
-    <img src="${HERO}" alt="다낭 바나힐 골든브릿지">
+    <img src="${HERO}" alt="저녁 하늘 아래 등불이 걸린 호이안 거리">
     <div class="scrim"></div>
-    <a class="credit" href="https://unsplash.com/?utm_source=bangkok_trip&utm_medium=referral" target="_blank" rel="noopener">Photo · jet dela cruz / Unsplash</a>
+    <a class="credit" href="https://unsplash.com/?utm_source=bangkok_trip&utm_medium=referral" target="_blank" rel="noopener">Photo · Kyle Thacker / Unsplash</a>
     <button class="me" data-act="who">나: ${esc(ME||"선택")}</button>
     <div class="dday">${ddayText()}</div>
     <div class="txt"><div class="eyebrow">our little trip</div><h1>Da Nang</h1>
