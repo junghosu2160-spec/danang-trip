@@ -394,7 +394,7 @@ function vWish(){
   const cards=list.map(w=>`<div class="card wish">
     <button class="ph" data-act="editWish" data-id="${w.id}" aria-label="사진·내용 고치기">${w.photo?`<img src="${w.photo}" alt="">`:svg("shop",30,1.8)}</button>
     <div class="body"><div><div class="t1" style="font-size:15.5px;font-weight:800">${esc(w.title)}</div><div class="t2">${chip(w.by)}<span>님이 올림</span></div></div>
-    <div class="foot"><span class="t2" style="margin:0">${w.place?svg("pin",14)+esc(w.place):""}</span>${w.day?`<button class="pill soft" data-act="toPlan" data-id="${w.id}">DAY ${dayOf(w.day)?.n||""} ${esc(w.slot||"")}</button>`:`<button class="pill solid" data-act="toPlan" data-id="${w.id}">일정에 넣기</button>`}</div></div></div>`).join("");
+    <div class="foot">${w.place?`<a class="t2" style="margin:0;color:var(--acc);text-decoration:none;font-weight:600;min-width:0" href="${esc(/^https?:\/\//i.test(w.place)?w.place:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(w.place))}" target="_blank" rel="noopener">${svg("pin",14)}<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${/^https?:\/\//i.test(w.place)?"지도 보기":esc(w.place)}</span></a>`:"<span></span>"}${w.day?`<button class="pill soft" data-act="toPlan" data-id="${w.id}">DAY ${dayOf(w.day)?.n||""} ${esc(w.slot||"")}</button>`:`<button class="pill solid" data-act="toPlan" data-id="${w.id}">일정에 넣기</button>`}</div></div></div>`).join("");
   return `<div class="pad phead"><div class="eyebrow">wish list</div><h1>하고 싶은 것</h1><p>각자 올리고, 정해지면 일정에 넣어요.</p>
     <form class="addrow" data-form="quickWish"><label for="wishIn" style="position:absolute;left:-9999px">하고 싶은 것</label><input id="wishIn" class="input" placeholder="예) 야시장에서 팟타이 먹기" maxlength="60" autocomplete="off"><button class="plus" aria-label="올리기">${svg("plus",22,2.6)}</button></form>
     <div class="tabs" style="margin-top:16px">${[["all",`전체 ${all.length}`],["todo",`아직 안 정함 ${todo}`],["done",`일정에 넣음 ${all.length-todo}`]].map(([k,l])=>`<button class="tab ${f===k?"on":""}" data-act="wishF" data-k="${k}">${l}</button>`).join("")}</div>
@@ -592,7 +592,7 @@ function wishForm(w){
   openSheet(`<h3>하고 싶은 것 고치기</h3><form data-form="wish">
     ${photoField(hold.photo,"사진 (선택)")}
     <div class="field"><label for="wTitle">하고 싶은 것</label><input id="wTitle" class="input" value="${esc(w.title)}" maxlength="60"></div>
-    <div class="field"><label for="wPlace">장소 (선택)</label><input id="wPlace" class="input" value="${esc(w.place)}" maxlength="40"></div>
+    <div class="field"><label for="wPlace">장소 또는 지도 링크 (선택)</label><input id="wPlace" class="input" value="${esc(w.place)}" maxlength="40"></div>
     <div class="actions"><button type="button" class="pill danger" data-act="delWish" data-id="${w.id}">지우기</button><button class="pill solid">저장</button></div></form>`,
   sh=>{ bindPhoto(sh,hold); sh.querySelector("form").onsubmit=async e=>{ e.preventDefault();
     try{ await api.update("wishes",w.id,{title:sh.querySelector("#wTitle").value.trim()||w.title,place:sh.querySelector("#wPlace").value.trim(),photo:hold.photo}); closeSheet(); toast("저장했어요"); }catch(err){ toast("저장하지 못했어요."); } }; });
